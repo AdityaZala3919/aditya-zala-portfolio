@@ -1,0 +1,67 @@
+[
+  {
+    "title": "Linear Regression from Scratch (Without Libraries)",
+    "excerpt": "A step-by-step guide to implementing linear regression from scratch using only NumPy, understanding the math behind gradient descent.",
+    "date": "2025-03-01",
+    "readTime": "8 min read",
+    "tags": [
+      "Machine Learning",
+      "Linear Regression",
+      "NumPy"
+    ],
+    "isPinned": true,
+    "id": 1
+  },
+  {
+    "title": "Logistic Regression Explained with Code",
+    "excerpt": "Learn how logistic regression works for classification problems, including sigmoid function, cost function, and implementation from scratch.",
+    "date": "2025-03-03",
+    "readTime": "10 min read",
+    "tags": [
+      "Machine Learning",
+      "Classification",
+      "Python"
+    ],
+    "isPinned": false,
+    "id": 2
+  },
+  {
+    "title": "Understanding Transformers: Attention is All You Need",
+    "excerpt": "A beginner-friendly breakdown of transformer architecture, self-attention, and how modern NLP models like GPT work.",
+    "date": "2025-03-10",
+    "readTime": "12 min read",
+    "tags": [
+      "Deep Learning",
+      "Transformers",
+      "NLP"
+    ],
+    "isPinned": true,
+    "id": 3
+  },
+  {
+    "title": "Building a RAG System with LangChain and ChromaDB",
+    "excerpt": "Learn how to build a Retrieval-Augmented Generation system using LangChain, vector databases, and LLMs for real-world applications.",
+    "date": "2025-03-15",
+    "readTime": "9 min read",
+    "tags": [
+      "RAG",
+      "LangChain",
+      "LLM"
+    ],
+    "isPinned": false,
+    "id": 4
+  },
+  {
+    "title": "CNN + LSTM for Image Captioning Explained",
+    "excerpt": "A deep dive into how CNNs and LSTMs work together for image captioning, with insights from building a real project.",
+    "date": "2025-03-18",
+    "readTime": "11 min read",
+    "tags": [
+      "Deep Learning",
+      "Computer Vision",
+      "LSTM"
+    ],
+    "isPinned": true,
+    "id": 5
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "framework": "other",
+  "buildCommand": "cd frontend && npm run build",
+  "outputDirectory": "frontend/dist",
+  "installCommand": "npm install",
+  "env": {
+    "VITE_API_URL": "@vite_api_url",
+    "VITE_MASTER_TOKEN": "@vite_master_token"
+  }
+}

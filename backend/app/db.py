@@ -4,12 +4,30 @@ from typing import List, Optional
 from .schemas import Project, ProjectCreate, ProjectUpdate, Blog, BlogCreate, BlogUpdate
 
 # Data file paths
-DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+# Use /tmp on Vercel (or AWS Lambda) since the deployment filesystem is read-only
+if os.environ.get("VERCEL") == "1" or os.environ.get("AWS_EXECUTION_ENV"):
+    DATA_DIR = "/tmp/data"
+else:
+    DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+
 PROJECTS_FILE = os.path.join(DATA_DIR, "projects.json")
 BLOGS_FILE = os.path.join(DATA_DIR, "blogs.json")
 
 # Ensure data directory exists
-os.makedirs(DATA_DIR, exist_ok=True)
+try:
+    os.makedirs(DATA_DIR, exist_ok=True)
+    
+    # If on Vercel and /tmp/data is empty, copy initial data if it exists in the app folder
+    if DATA_DIR == "/tmp/data":
+        import shutil
+        app_data_dir = os.path.join(os.path.dirname(__file__), "data")
+        if os.path.exists(os.path.join(app_data_dir, "projects.json")) and not os.path.exists(PROJECTS_FILE):
+            shutil.copy(os.path.join(app_data_dir, "projects.json"), PROJECTS_FILE)
+        if os.path.exists(os.path.join(app_data_dir, "blogs.json")) and not os.path.exists(BLOGS_FILE):
+            shutil.copy(os.path.join(app_data_dir, "blogs.json"), BLOGS_FILE)
+except OSError:
+    pass
+
 
 
 def _load_json(filepath: str) -> List[dict]:

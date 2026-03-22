@@ -1,8 +1,12 @@
 import json
 import os
+import sys
 from http import HTTPStatus
 from typing import Any, Callable, Dict, Optional
 from urllib.parse import parse_qs
+
+# Add the parent directory to sys.path to ensure backend module can be imported
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from backend.app import db
 from backend.app.schemas import (

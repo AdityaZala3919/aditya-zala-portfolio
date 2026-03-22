@@ -1,12 +1,9 @@
 import json
 import os
-import sys
 from http import HTTPStatus
 from typing import Any, Callable, Dict, Optional
 from urllib.parse import parse_qs
 
-# Add the parent directory to sys.path to ensure backend module can be imported
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Lazy import of backend modules - import only when needed
 def _get_db():
@@ -64,7 +61,8 @@ def _get_env(name: str, default: str = "") -> str:
     return os.getenv(name, default)
 
 
-MASTER_TOKEN = _get_env("MASTER_TOKEN", "your-secret-master-token")
+def _get_master_token() -> str:
+    return _get_env("MASTER_TOKEN", "your-secret-master-token")
 
 
 def _require_auth(headers: Dict[str, str]) -> Optional[Dict[str, Any]]:
@@ -72,7 +70,7 @@ def _require_auth(headers: Dict[str, str]) -> Optional[Dict[str, Any]]:
     if not auth.startswith("Bearer "):
         return _json_response(HTTPStatus.UNAUTHORIZED, {"detail": "Invalid or missing master token"})
     token = auth.removeprefix("Bearer ").strip()
-    if token != MASTER_TOKEN:
+    if token != _get_master_token():
         return _json_response(HTTPStatus.UNAUTHORIZED, {"detail": "Invalid or missing master token"})
     return None
 

@@ -268,3 +268,6 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
 
 
 app = handler
+
+
+app = handler

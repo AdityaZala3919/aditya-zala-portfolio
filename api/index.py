@@ -4,8 +4,8 @@ from http import HTTPStatus
 from typing import Any, Callable, Dict, Optional
 from urllib.parse import parse_qs
 
-from app import db
-from app.schemas import (
+from backend.app import db
+from backend.app.schemas import (
     Blog,
     BlogCreate,
     BlogUpdate,
@@ -167,7 +167,7 @@ def _handle_contact(payload: Dict[str, Any]) -> Dict[str, Any]:
     try:
         success, message = True, "Email sent successfully"
         try:
-            from app.email_service import email_service
+            from backend.app.email_service import email_service
             email_service.send_contact_email(
                 sender_name=data.name,
                 sender_email=data.email,

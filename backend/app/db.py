@@ -1,7 +1,7 @@
 import json
 import os
 from typing import List, Optional
-from app.schemas import Project, ProjectCreate, ProjectUpdate, Blog, BlogCreate, BlogUpdate
+from .schemas import Project, ProjectCreate, ProjectUpdate, Blog, BlogCreate, BlogUpdate
 
 # Data file paths
 DATA_DIR = os.path.join(os.path.dirname(__file__), "data")

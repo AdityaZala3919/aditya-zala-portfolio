@@ -3,13 +3,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 import threading
 
-from app.schemas import (
+from .schemas import (
     Project, ProjectCreate, ProjectUpdate, 
     Blog, BlogCreate, BlogUpdate
 )
-from app.auth import verify_master_token
-from app.email_service import email_service
-from app import db
+from .auth import verify_master_token
+from .email_service import email_service
+from . import db
 
 app = FastAPI(
     title="Portfolio API",

@@ -171,17 +171,6 @@ async def send_contact_email(data: dict, token: str = Depends(verify_master_toke
             "message": f"Error: {str(e)}"
         }
 
-
-# ==================== REDIRECT TO SWAGGER UI ====================
-
-from fastapi.responses import RedirectResponse
-
-@app.get("/", tags=["documentation"], dependencies=[Depends(verify_master_token)])
-async def redirect_to_docs(token: str = Depends(verify_master_token)):
-    """Redirect root to Swagger UI documentation (protected)."""
-    return RedirectResponse(url="/docs")
-
-
 # ==================== HEALTH CHECK ====================
 
 @app.get("/health")

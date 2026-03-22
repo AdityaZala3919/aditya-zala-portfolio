@@ -8,8 +8,8 @@ import { Project } from "@/components/ProjectCard";
 import { Blog } from "@/components/BlogCard";
 import { mockProjects, mockBlogs } from "@/data/mockData";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
-const MASTER_TOKEN = import.meta.env.VITE_MASTER_TOKEN || "your-secret-master-token";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "";
+const MASTER_TOKEN = import.meta.env.VITE_MASTER_TOKEN;
 
 interface ApiResponse<T> {
   data: T | null;
@@ -25,6 +25,10 @@ async function apiCall<T>(
   options: RequestInit = {}
 ): Promise<ApiResponse<T>> {
   try {
+    if (!MASTER_TOKEN) {
+      throw new Error("Missing VITE_MASTER_TOKEN in frontend environment");
+    }
+
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       ...options,
       headers: {
@@ -180,6 +184,10 @@ export async function sendContactEmail(
   data: ContactFormData
 ): Promise<ContactFormResponse> {
   try {
+    if (!MASTER_TOKEN) {
+      throw new Error("Missing VITE_MASTER_TOKEN in frontend environment");
+    }
+
     const response = await fetch(`${API_BASE_URL}/api/contact`, {
       method: "POST",
       headers: {

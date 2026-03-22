@@ -8,17 +8,32 @@ from urllib.parse import parse_qs
 # Add the parent directory to sys.path to ensure backend module can be imported
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from backend.app import db
-from backend.app.schemas import (
-    Blog,
-    BlogCreate,
-    BlogUpdate,
-    ContactFormRequest,
-    ContactFormResponse,
-    Project,
-    ProjectCreate,
-    ProjectUpdate,
-)
+# Lazy import of backend modules - import only when needed
+def _get_db():
+    from backend.app import db
+    return db
+
+def _get_schemas():
+    from backend.app.schemas import (
+        Blog,
+        BlogCreate,
+        BlogUpdate,
+        ContactFormRequest,
+        ContactFormResponse,
+        Project,
+        ProjectCreate,
+        ProjectUpdate,
+    )
+    return {
+        'Blog': Blog,
+        'BlogCreate': BlogCreate,
+        'BlogUpdate': BlogUpdate,
+        'ContactFormRequest': ContactFormRequest,
+        'ContactFormResponse': ContactFormResponse,
+        'Project': Project,
+        'ProjectCreate': ProjectCreate,
+        'ProjectUpdate': ProjectUpdate,
+    }
 
 
 def _json_response(status: int, body: Any) -> Dict[str, Any]:
@@ -70,10 +85,12 @@ def _get_json_body(event: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def _projects_response() -> Dict[str, Any]:
+    db = _get_db()
     return _json_response(HTTPStatus.OK, [p.model_dump() for p in db.get_projects()])
 
 
 def _blogs_response() -> Dict[str, Any]:
+    db = _get_db()
     return _json_response(HTTPStatus.OK, [b.model_dump() for b in db.get_blogs()])
 
 
@@ -166,6 +183,10 @@ def _openapi_json() -> Dict[str, Any]:
 
 
 def _handle_contact(payload: Dict[str, Any]) -> Dict[str, Any]:
+    schemas = _get_schemas()
+    ContactFormRequest = schemas['ContactFormRequest']
+    ContactFormResponse = schemas['ContactFormResponse']
+    
     data = ContactFormRequest(**payload)
     # Maintain current behavior: store/send in backend service and return fast.
     try:
@@ -213,6 +234,13 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             return auth_error
 
         try:
+            db = _get_db()
+            schemas = _get_schemas()
+            ProjectCreate = schemas['ProjectCreate']
+            ProjectUpdate = schemas['ProjectUpdate']
+            BlogCreate = schemas['BlogCreate']
+            BlogUpdate = schemas['BlogUpdate']
+            
             if path == "/api/projects" and method == "GET":
                 return _projects_response()
             if path.startswith("/api/projects/") and method == "GET":
@@ -265,9 +293,6 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             return _json_response(HTTPStatus.INTERNAL_SERVER_ERROR, {"detail": str(exc)})
 
     return _not_found()
-
-
-app = handler
 
 
 app = handler

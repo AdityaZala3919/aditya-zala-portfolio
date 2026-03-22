@@ -1,8 +1,13 @@
 import json
 import os
+import sys
 from http import HTTPStatus
 from typing import Any, Callable, Dict, Optional
 from urllib.parse import parse_qs
+
+# Ensure we don't import problematic modules
+if 'http.server' in sys.modules:
+    del sys.modules['http.server']
 
 
 # Lazy import of backend modules - import only when needed
@@ -293,4 +298,5 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     return _not_found()
 
 
+# Export as both names for compatibility
 app = handler

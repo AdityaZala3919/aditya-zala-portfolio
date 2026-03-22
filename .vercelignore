@@ -1,0 +1,10 @@
+.git
+.env
+.env.local
+node_modules
+backend/__pycache__
+backend/app/__pycache__
+*.pyc
+.DS_Store
+README.md
+*.md

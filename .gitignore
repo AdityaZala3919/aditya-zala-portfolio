@@ -13,14 +13,14 @@ dist-ssr
 *.local
 
 # Frontend build artifacts
-frontend/dist
-frontend/dist-ssr
-frontend/.cache
-frontend/.vite
-frontend/coverage
+src/dist
+src/dist-ssr
+src/.cache
+src/.vite
+src/coverage
 
 # Bun package manager (if used)
-frontend/bun.lockb
+src/bun.lockb
 
 # Editor directories and files
 .vscode/*
@@ -64,8 +64,6 @@ FINAL_SUMMARY.md
 .env.*.local
 
 # Python
-backend/__pycache__/
-backend/app/__pycache__/
 *.pyc
 *.pyo
 *.pyd
@@ -134,7 +132,7 @@ DOCUMENTATION_INDEX.md
 FINAL_SUMMARY.md
 START_DEPLOYMENT.md
 
-/frontend/node_modules
+/src/node_modules
 .env.production
 VERCEL_CUSTOM_DOMAIN.md
 *.md

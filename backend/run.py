@@ -14,7 +14,7 @@ if __name__ == "__main__":
     print(f"Starting backend with MASTER_TOKEN: {master_token[:10]}...")
     
     uvicorn.run(
-        "backend.app.main:app",
+        "app.main:app",
         host="0.0.0.0",
         port=8000,
         reload=True,

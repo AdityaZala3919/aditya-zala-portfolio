@@ -3,4 +3,4 @@ pydantic
 python-multipart
 python-dotenv
 email-validator
-uvicorn
+uvicorn[standard]

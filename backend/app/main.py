@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from typing import List
 import threading
 
@@ -34,11 +35,18 @@ app.openapi_tags = [
 ]
 
 # CORS middleware for frontend integration
+# Restrict to specific origins in production
+allowed_origins = [
+    "https://adityazala.dev",  # Production frontend
+    "http://localhost:5173",   # Local development
+    "http://localhost:3000",   # Alternative dev port
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, restrict to your frontend domain
+    allow_origins=allowed_origins,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -178,3 +186,10 @@ async def health_check():
     """Health check endpoint (no auth required)."""
     return {"status": "ok"}
 
+
+# ==================== ROOT REDIRECT ====================
+
+@app.get("/")
+async def root():
+    """Redirect root to Swagger UI documentation."""
+    return RedirectResponse(url="/docs")

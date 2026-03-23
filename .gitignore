@@ -137,3 +137,4 @@ START_DEPLOYMENT.md
 /frontend/node_modules
 .env.production
 VERCEL_CUSTOM_DOMAIN.md
+*.md

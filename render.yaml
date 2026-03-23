@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: portfolio-api
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python backend/run.py
+    envVars:
+      - key: MASTER_TOKEN
+        scope: run
+        sync: false

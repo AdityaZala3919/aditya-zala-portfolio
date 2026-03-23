@@ -4,8 +4,8 @@
  */
 
 const API_URLS = [
-  import.meta.env.VITE_API_URL,
   "https://aditya-zala-portfolio.onrender.com",
+  import.meta.env.VITE_API_URL,
 ].filter(Boolean);
 
 export const API_BASE_URL = API_URLS[0] || "http://localhost:8000";
